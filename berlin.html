@@ -16,6 +16,15 @@
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Oxygen:wght@300;400;700&family=Quicksand:wght@300..700&display=swap"
       rel="stylesheet"
     />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+          "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.webgpu.js",
+          "three/tsl": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.tsl.js"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="fixed-menu">
@@ -30,7 +39,12 @@
 
     <div class="blok">
       <div class="tytul">
-        <a href="https://pl.wikipedia.org/wiki/Berlin" class="tytul-text" target="_blank">BERLIN</a>
+        <a
+          href="https://pl.wikipedia.org/wiki/Berlin"
+          class="tytul-text"
+          target="_blank"
+          >BERLIN</a
+        >
         <div class="tytul-subtitle">Miasto, które nauczyło mnie żyć</div>
       </div>
 
@@ -68,7 +82,7 @@
       <div class="foto-tabela">
         <h2 class="foto-tytul">Moje ulubione kadry z Berlina</h2>
 
-        <div class="foto-grid">
+        <div class="foto-grid foto-grid--glass" id="berlin-glass-grid">
           <div class="foto-item">
             <img src="images/berlin/1.jpg" alt="Berlin" />
           </div>
@@ -141,5 +155,6 @@
         </div>
       </div>
     </div>
+    <script type="module" src="js/glass.js"></script>
   </body>
 </html>

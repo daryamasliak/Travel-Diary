@@ -311,61 +311,148 @@ body {
 }
 
 .foto-tabela {
-  margin: 40px 0;
+  margin: 50px 0;
+  padding: 28px;
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      ellipse at 10% 0%,
+      rgba(108, 99, 255, 0.16),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 100% 100%,
+      rgba(173, 195, 255, 0.18),
+      transparent 45%
+    ),
+    #edf0f7;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 60px rgba(42, 45, 67, 0.08);
 }
 
 .foto-tytul {
   font-family: "Oswald", sans-serif;
   color: #2a2d43;
   text-align: center;
-  padding-bottom: 15px;
-  border-bottom: 3px solid #6c63ff;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(108, 99, 255, 0.25);
   font-size: 28px;
-  margin-bottom: 25px;
+  margin-bottom: 28px;
 }
 
 .foto-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  padding: 4px;
+  background: transparent;
+  border-radius: 20px;
 }
 
 .foto-item {
-  background-color: white;
+  position: relative;
+  isolation: isolate;
   overflow: hidden;
-  transition: all 0.3s ease;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  aspect-ratio: 4 / 3;
+  min-width: 0;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 8px 24px rgba(42, 45, 67, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
 }
 
-.foto-item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+.foto-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.08) 18%,
+    transparent 42%,
+    transparent 72%,
+    rgba(108, 99, 255, 0.1) 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.85),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
+  transition: opacity 0.4s ease;
 }
 
 .foto-item img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
   display: block;
-}
-
-.foto-ramka {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-}
-
-.foto-ramka img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  border: 0;
+  transform: scale(1.01);
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.foto-item:hover .foto-ramka img {
-  transform: scale(1.05);
+.foto-item:hover {
+  transform: translateY(-5px) scale(1.025);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow:
+    0 18px 36px rgba(42, 45, 67, 0.16),
+    0 0 24px rgba(108, 99, 255, 0.12),
+    inset 0 1px 2px rgba(255, 255, 255, 1);
+}
+
+.foto-item:hover::after {
+  opacity: 1;
+}
+
+.foto-item:hover img {
+  transform: scale(1.08);
+}
+
+@media (max-width: 900px) {
+  .foto-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .foto-tabela {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .foto-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .foto-tabela {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .foto-item {
+    border-radius: 15px;
+  }
+
+  .foto-tytul {
+    font-size: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .foto-item,
+  .foto-item img,
+  .foto-item::after {
+    transition: none;
+  }
 }
 
 .foto-opis {
@@ -476,5 +563,51 @@ body {
 
   .foto-item img {
     height: 150px;
+  }
+}
+
+.liquid-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-card .liquid-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.liquid-card img {
+  visibility: hidden;
+}
+
+.foto-grid.foto-grid--glass.is-webgpu-ready {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: clamp(430px, 54vw, 620px);
+  min-height: 430px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.foto-grid.foto-grid--glass.is-webgpu-ready canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+}
+
+@media (max-width: 600px) {
+  .foto-grid.foto-grid--glass.is-webgpu-ready {
+    height: 460px;
+    min-height: 460px;
   }
 }
